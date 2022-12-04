@@ -5,12 +5,12 @@ import 'package:flutter/material.dart';
 class SummaryBook extends StatelessWidget {
   const SummaryBook({
     Key? key,
-    required this.ballance,
+    required this.balance,
     required this.totalCashIn,
     required this.totalCashOut,
   }) : super(key: key);
 
-  final int ballance;
+  final int balance;
   final int totalCashIn;
   final int totalCashOut;
 
@@ -54,9 +54,9 @@ class SummaryBook extends StatelessWidget {
             Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const TextTableTitle(text: "Ballance"),
+                const TextTableTitle(text: "Balance"),
                 Text(
-                  ballance.toString(),
+                  balance.toString(),
                   style: const TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.w700,

@@ -196,7 +196,7 @@ class Body extends StatelessWidget {
 
           // summary
           const SummaryBook(
-            ballance: 12000,
+            balance: 12000,
             totalCashIn: 12000,
             totalCashOut: 38999,
           ),
