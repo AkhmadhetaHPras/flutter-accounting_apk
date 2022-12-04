@@ -11,7 +11,7 @@ class ListItem extends StatelessWidget {
   }) : super(key: key);
 
   final String name;
-  final DateTime date;
+  final String date;
   final int? cashIn;
   final int? cashOut;
 
@@ -53,7 +53,7 @@ class ListItem extends StatelessWidget {
                     style: const TextStyle(fontWeight: FontWeight.w600),
                   ),
                   Text(
-                    DateFormat.yMd().add_Hm().format(date),
+                    date,
                   ),
                 ],
               ),

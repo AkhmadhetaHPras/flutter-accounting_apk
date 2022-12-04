@@ -1,4 +1,7 @@
 import 'package:accounting_apk/constants.dart';
+import 'package:accounting_apk/models/item.dart';
+import 'package:accounting_apk/screens/book/book_screen.dart';
+import 'package:accounting_apk/services/database_services.dart';
 import 'package:accounting_apk/size_config.dart';
 import 'package:flutter/material.dart';
 import 'package:accounting_apk/components/default_button.dart';
@@ -18,6 +21,7 @@ class _CashInFormState extends State<CashInForm> {
   TextEditingController labelInput = TextEditingController();
   TextEditingController dateInput = TextEditingController();
   TextEditingController timeInput = TextEditingController();
+  bool _loader = false;
 
   final List<String?> errors = [];
 
@@ -54,13 +58,35 @@ class _CashInFormState extends State<CashInForm> {
           FormError(errors: errors),
           SizedBox(height: getProportionateScreenHeight(40)),
           DefaultButton(
+            load: _loader,
             text: "Save",
-            press: () {
+            press: () async {
               if (_formKey.currentState!.validate()) {
                 _formKey.currentState!.save();
+                setState(() {
+                  _loader = true;
+                });
+                await DatabaseService().insertItem(Item(
+                  label: labelInput.text,
+                  date: dateInput.text,
+                  time: timeInput.text,
+                  cashIn: int.parse(amountInput.text),
+                ));
+                setState(() {
+                  _loader = false;
+                });
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (BuildContext context) => const BookScreen(),
+                  ),
+                );
                 // if all are valid then go to success screen
                 // Navigator.pushNamed(context, CompleteProfileScreen.routeName);
               }
+              setState(() {
+                _loader = false;
+              });
             },
           ),
         ],
@@ -71,6 +97,13 @@ class _CashInFormState extends State<CashInForm> {
   TextFormField buildTimeFormField() {
     return TextFormField(
       controller: timeInput,
+      validator: (value) {
+        if (timeInput.text.isEmpty) {
+          addError(error: kTimeNullError);
+          return "";
+        }
+        return null;
+      },
       decoration: const InputDecoration(
         labelText: "Time",
         hintText: "Enter the time",
@@ -97,10 +130,12 @@ class _CashInFormState extends State<CashInForm> {
           removeError(error: kTimeNullError);
 
           setState(() {
-            final hour = pickedTime.hour.toString();
-            final minute = pickedTime.minute.toString();
-            final time = '$hour : $minute';
-            timeInput.text = time; //set output date to TextField value.
+            // final hour = pickedTime.hour.toString();
+            // final minute = pickedTime.minute.toString();
+            final df = DateFormat("h:mm a");
+            final dt = df.parse(pickedTime.format(context));
+            final finaltime = DateFormat('HH:mm').format(dt);
+            timeInput.text = finaltime; //set output date to TextField value.
           });
         } else {
           addError(error: kTimeNullError);
@@ -112,7 +147,13 @@ class _CashInFormState extends State<CashInForm> {
   TextFormField buildDateFormField() {
     return TextFormField(
       controller: dateInput,
-      //editing controller of this TextField
+      validator: (value) {
+        if (dateInput.text.isEmpty) {
+          addError(error: kDateNullError);
+          return "";
+        }
+        return null;
+      },
       decoration: const InputDecoration(
         labelText: "Date",
         hintText: "Enter the date",

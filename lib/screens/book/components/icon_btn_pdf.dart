@@ -6,15 +6,17 @@ class IconBtn extends StatelessWidget {
   const IconBtn({
     Key? key,
     required this.icon,
+    this.tap,
   }) : super(key: key);
 
   final IconData icon;
+  final Function? tap;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       borderRadius: BorderRadius.circular(100),
-      onTap: () {},
+      onTap: tap as void Function()?,
       child: Stack(
         clipBehavior: Clip.none,
         children: [

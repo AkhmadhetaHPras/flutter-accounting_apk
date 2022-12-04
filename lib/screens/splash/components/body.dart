@@ -71,6 +71,7 @@ class _BodyState extends State<Body> {
                       press: () {
                         Navigator.pushNamed(context, BookScreen.routeName);
                       },
+                      load: false,
                     ),
                     const Spacer(),
                   ],
