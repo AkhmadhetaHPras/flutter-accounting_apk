@@ -2,9 +2,8 @@ import 'package:accounting_apk/constants.dart';
 import 'package:accounting_apk/screens/book/cash_in.dart';
 import 'package:accounting_apk/screens/book/components/book_header.dart';
 import 'package:accounting_apk/screens/book/components/icon_btn_pdf.dart';
-import 'package:accounting_apk/screens/book/components/list_item.dart';
+import 'package:accounting_apk/screens/book/components/list_page.dart';
 import 'package:accounting_apk/screens/book/components/summary.dart';
-import 'package:accounting_apk/screens/book/components/text_table_title.dart';
 import 'package:accounting_apk/size_config.dart';
 import 'package:flutter/material.dart';
 
@@ -83,116 +82,8 @@ class Body extends StatelessWidget {
             ),
           ),
           SizedBox(height: getProportionateScreenWidth(10)),
-          Expanded(
-            child: Column(
-              children: [
-                // list view header
-                Container(
-                  height: 35,
-                  color: kPrimaryColor2,
-                  padding: const EdgeInsets.all(4),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [
-                      Expanded(
-                        flex: 2,
-                        child: TextTableTitle(text: "Date"),
-                      ),
-                      Expanded(
-                        flex: 1,
-                        child: TextTableTitle(
-                            text: "Cash In", align: TextAlign.center),
-                      ),
-                      Expanded(
-                        flex: 1,
-                        child: TextTableTitle(
-                            text: "Cash Out", align: TextAlign.center),
-                      ),
-                    ],
-                  ),
-                ),
 
-                // Listview
-                Expanded(
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 4),
-                    // height: MediaQuery.of(context).size.height - 340,
-                    child: SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          ListItem(
-                            name: "Name",
-                            date: DateTime.now(),
-                            cashIn: 12000,
-                          ),
-                          ListItem(
-                            name: "Name",
-                            date: DateTime.now(),
-                            cashOut: 1892000,
-                          ),
-                          ListItem(
-                            name: "Name",
-                            date: DateTime.now(),
-                            cashIn: 12000,
-                          ),
-                          ListItem(
-                            name: "Name",
-                            date: DateTime.now(),
-                            cashIn: 12000,
-                          ),
-                          ListItem(
-                            name: "Name",
-                            date: DateTime.now(),
-                            cashIn: 138900,
-                          ),
-                          ListItem(
-                            name: "Name",
-                            date: DateTime.now(),
-                            cashIn: 12000,
-                          ),
-                          ListItem(
-                            name: "Name",
-                            date: DateTime.now(),
-                            cashIn: 1387600,
-                          ),
-                          ListItem(
-                            name: "Name",
-                            date: DateTime.now(),
-                            cashOut: 1289000,
-                          ),
-                          ListItem(
-                            name: "Name",
-                            date: DateTime.now(),
-                            cashOut: 1289000,
-                          ),
-                          ListItem(
-                            name: "Name",
-                            date: DateTime.now(),
-                            cashOut: 1289000,
-                          ),
-                          ListItem(
-                            name: "Name",
-                            date: DateTime.now(),
-                            cashOut: 1289000,
-                          ),
-                          ListItem(
-                            name: "Name",
-                            date: DateTime.now(),
-                            cashOut: 1289000,
-                          ),
-                          ListItem(
-                            name: "Name",
-                            date: DateTime.now(),
-                            cashOut: 1289000,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
+          const ListPage(),
 
           // summary
           const SummaryBook(
