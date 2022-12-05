@@ -1,6 +1,7 @@
 import 'package:accounting_apk/constants.dart';
 import 'package:accounting_apk/screens/book/components/text_table_title.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class SummaryBook extends StatelessWidget {
   const SummaryBook({
@@ -13,6 +14,15 @@ class SummaryBook extends StatelessWidget {
   final int balance;
   final int totalCashIn;
   final int totalCashOut;
+
+  static String convertToIdr(dynamic number) {
+    NumberFormat currencyFormatter = NumberFormat.currency(
+      locale: 'id',
+      symbol: '',
+      decimalDigits: 0,
+    );
+    return currencyFormatter.format(number);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +40,7 @@ class SummaryBook extends StatelessWidget {
               children: [
                 const TextTableTitle(text: "Total Cash In"),
                 Text(
-                  totalCashIn.toString(),
+                  convertToIdr(totalCashIn),
                   style: const TextStyle(
                       color: Colors.green,
                       fontWeight: FontWeight.w700,
@@ -43,7 +53,7 @@ class SummaryBook extends StatelessWidget {
               children: [
                 const TextTableTitle(text: "Total Cash Out"),
                 Text(
-                  totalCashOut.toString(),
+                  convertToIdr(totalCashOut),
                   style: const TextStyle(
                       color: Colors.red,
                       fontWeight: FontWeight.w700,
@@ -54,9 +64,9 @@ class SummaryBook extends StatelessWidget {
             Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const TextTableTitle(text: "Balance"),
+                const TextTableTitle(text: "Saldo"),
                 Text(
-                  balance.toString(),
+                  convertToIdr(balance),
                   style: const TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.w700,
