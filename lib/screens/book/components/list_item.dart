@@ -51,6 +51,8 @@ class ListItem extends StatelessWidget {
                   Text(
                     name,
                     style: const TextStyle(fontWeight: FontWeight.w600),
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 2,
                   ),
                   Text(
                     date,
