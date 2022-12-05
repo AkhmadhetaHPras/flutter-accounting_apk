@@ -132,7 +132,7 @@ class _CashInFormState extends State<CashInForm> {
           setState(() {
             // final hour = pickedTime.hour.toString();
             // final minute = pickedTime.minute.toString();
-            final df = DateFormat("h:mm a");
+            final df = DateFormat("HH:mm");
             final dt = df.parse(pickedTime.format(context));
             final finaltime = DateFormat('HH:mm').format(dt);
             timeInput.text = finaltime; //set output date to TextField value.
