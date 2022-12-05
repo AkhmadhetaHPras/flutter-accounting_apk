@@ -85,7 +85,7 @@ class Pdf {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 buildText(
-                  title: 'Cash In total',
+                  title: 'Cash In Total',
                   value: convertToIdr(cIn),
                   unite: true,
                 ),
