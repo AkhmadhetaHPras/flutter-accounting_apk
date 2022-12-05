@@ -39,6 +39,9 @@ dependencies:
   flutter_svg: ^1.1.6
   sqflite: ^2.2.1
   path: ^1.8.2
+  pdf: ^3.8.4
+  open_file: ^3.2.1
+  path_provider: ^2.0.11
 
 dev_dependencies:
   flutter_test:

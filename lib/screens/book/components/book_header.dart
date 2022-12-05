@@ -1,12 +1,32 @@
+import 'package:accounting_apk/api/pdf.dart';
+import 'package:accounting_apk/api/pdf_api.dart';
 import 'package:accounting_apk/constants.dart';
-import 'package:accounting_apk/screens/book/components/icon_btn_pdf.dart';
+import 'package:accounting_apk/models/item.dart';
 import 'package:accounting_apk/size_config.dart';
 import 'package:flutter/material.dart';
 
-class BookHeader extends StatelessWidget {
+class BookHeader extends StatefulWidget {
   const BookHeader({
     Key? key,
+    required this.items,
+    required this.time,
+    required this.cIn,
+    required this.cOut,
+    required this.balance,
   }) : super(key: key);
+
+  final List<Item> items;
+  final String time;
+  final int cIn;
+  final int cOut;
+  final int balance;
+
+  @override
+  State<BookHeader> createState() => _BookHeaderState();
+}
+
+class _BookHeaderState extends State<BookHeader> {
+  bool _isloading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +44,20 @@ class BookHeader extends StatelessWidget {
                 color: kPrimaryLightColor),
           ),
           InkWell(
-            onTap: () {},
+            onTap: () async {
+              // here
+              setState(() {
+                _isloading = true;
+              });
+              final pdfFile = await Pdf.generate(widget.items, widget.time,
+                  widget.cIn, widget.cOut, widget.balance);
+
+              setState(() {
+                _isloading = false;
+              });
+
+              PdfApi.openFile(pdfFile);
+            },
             child: Stack(
               clipBehavior: Clip.none,
               children: [
@@ -32,10 +65,14 @@ class BookHeader extends StatelessWidget {
                   decoration: const BoxDecoration(
                     shape: BoxShape.circle,
                   ),
-                  child: const Icon(
-                    Icons.save_alt,
-                    color: Colors.white,
-                  ),
+                  child: !_isloading
+                      ? const Icon(
+                          Icons.save_alt,
+                          color: Colors.white,
+                        )
+                      : const CircularProgressIndicator(
+                          color: Colors.white,
+                        ),
                 ),
               ],
             ),

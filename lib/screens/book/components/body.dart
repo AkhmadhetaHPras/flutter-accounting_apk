@@ -2,6 +2,7 @@ import 'package:accounting_apk/components/loader.dart';
 import 'package:accounting_apk/constants.dart';
 import 'package:accounting_apk/models/item.dart';
 import 'package:accounting_apk/screens/book/cash_in.dart';
+import 'package:accounting_apk/screens/book/cash_out.dart';
 import 'package:accounting_apk/screens/book/components/book_header.dart';
 import 'package:accounting_apk/screens/book/components/icon_btn_pdf.dart';
 import 'package:accounting_apk/screens/book/components/list_page.dart';
@@ -75,12 +76,18 @@ class _BodyState extends State<Body> {
           // header
           Container(
             color: kPrimaryColor,
-            height: 60,
+            height: 68,
             child: Column(
               children: [
-                SizedBox(height: getProportionateScreenHeight(20)),
-                const BookHeader(),
-                SizedBox(height: getProportionateScreenWidth(10)),
+                SizedBox(height: getProportionateScreenHeight(16)),
+                BookHeader(
+                  items: items,
+                  time: "${getMonthName()} $year",
+                  cIn: cashIn,
+                  cOut: cashOut,
+                  balance: balance,
+                ),
+                SizedBox(height: getProportionateScreenWidth(8)),
               ],
             ),
           ),
@@ -148,7 +155,9 @@ class _BodyState extends State<Body> {
                     SizedBox(width: getProportionateScreenWidth(10)),
                     Expanded(
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pushNamed(context, CashOut.routeName);
+                        },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.red,
                         ),
