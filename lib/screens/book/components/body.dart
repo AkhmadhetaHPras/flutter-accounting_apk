@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:accounting_apk/components/loader.dart';
 import 'package:accounting_apk/constants.dart';
 import 'package:accounting_apk/models/item.dart';
@@ -60,8 +62,10 @@ class _BodyState extends State<Body> {
     setState(() {
       _isLoading = true;
     });
-    var response = await DatabaseService().itemList(month, year);
+    var response =
+        await DatabaseService().itemList(month.padLeft(2, '0'), year);
     items = response;
+    log(items.length.toString());
     updateSummary();
     setState(() {
       _isLoading = false;
@@ -114,6 +118,7 @@ class _BodyState extends State<Body> {
                           month = date.month.toString();
                           year = date.year.toString();
                         });
+
                         getAll();
                       },
                     ),

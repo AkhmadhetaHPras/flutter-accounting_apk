@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:accounting_apk/models/item.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
@@ -64,7 +66,6 @@ class DatabaseService {
   Future<List<Item>> itemList(String month, String year) async {
     // Get a reference to the database.
     final db = await _databaseService.database;
-
     // Query the table for all the Item.
     // final List<Map<String, dynamic>> maps = await db.query('item');
     final List<Map<String, dynamic>> maps = await db.rawQuery(
